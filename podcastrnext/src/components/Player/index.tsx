@@ -10,15 +10,18 @@ export function Player (){
          <div className={styles.empetyPlayer}>
          <strong>Selecione um podcast para ouvir</strong>
          </div>
-         <footer>
+         <footer className={styles.empty}>
 
              <div className={styles.progress}>
                  <span>00:00</span>
-                 <div className={styles.emptySlider}/>
+                 <div className={styles.slider}>
+                     <div className={styles.emptySlider}></div>
+                 </div>
+                 
                  <span>00:00</span>
 
              </div>
-             <div className={styles.button}>
+             <div className={styles.buttons}>
                  <button type="button">
                      <img src="./shuffle.svg" alt="Embaralhar"/>
                  </button>
@@ -39,5 +42,5 @@ export function Player (){
          </footer>
      </div>
     
-    );
+    );  
 }
