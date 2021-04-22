@@ -2,8 +2,10 @@ import {GetStaticPaths, GetStaticProps} from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import {api} from "../../services/api";
+import {useRouter} from "next/router"
 import { ConverttimeString } from '../../utils/convertDurationToTimeString';
 import styles from "./episode.module.scss";
+
 type Episode={
     id: string;
     title: string;
@@ -19,7 +21,10 @@ type EpisodeProps ={
     episode: Episode;
 }
 export default function Episode({episode}: EpisodeProps){
-    
+    const router = useRouter();
+    if (router.isFallback){
+        return <p>Carregando...</p>
+    }
     return(
         <div className={styles.episode}>
             <div className={styles.thumbnailContainer}>
@@ -50,7 +55,7 @@ export default function Episode({episode}: EpisodeProps){
 export const getStaticPaths: GetStaticPaths = async()=>{
     return{
         paths:[],
-        fallback : "blocking",
+        fallback : true,
     }
 }
 export const getStaticProps: GetStaticProps = async(ctx)=>{

@@ -4,11 +4,14 @@ import Image from "next/image";
 import { api } from "../services/api";
 import { ConverttimeString } from "../utils/convertDurationToTimeString";
 import styles from "./home.module.scss";
+import { useContext } from "react";
+import { PlayerContext } from "../contexts/PlayerContext";
+
 type Episode = {
   id: string;
   title: string;
   members: string;
-  thumbnail: string;
+  thumbnail: string; 
   duration: number;
   durationAsString: string;
   url: string;
@@ -20,10 +23,11 @@ type HomeProps = {
 };
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
+  const player = useContext(PlayerContext)
   return (
     <div className={styles.homepage}>
       <section className={styles.latestEpisodes}>
-        <h2>Ultimos Lançamentos</h2>
+        <h2>Ultimos Lançamentos {player}</h2>
         <ul>
           {latestEpisodes.map((episode) => {
             return (
