@@ -5,6 +5,9 @@ import {api} from "../../services/api";
 import {useRouter} from "next/router"
 import { ConverttimeString } from '../../utils/convertDurationToTimeString';
 import styles from "./episode.module.scss";
+import { usePlayer } from '../../contexts/PlayerContext';
+import Head from 'next/head';
+
 
 type Episode={
     id: string;
@@ -22,11 +25,16 @@ type EpisodeProps ={
 }
 export default function Episode({episode}: EpisodeProps){
     const router = useRouter();
+    const {play}= usePlayer();
     if (router.isFallback){
         return <p>Carregando...</p>
     }
     return(
         <div className={styles.episode}>
+            <Head>
+                <title>{episode.title}</title>
+            </Head>
+
             <div className={styles.thumbnailContainer}>
                 <Link href="/">
                     <button type='button'>
@@ -35,7 +43,7 @@ export default function Episode({episode}: EpisodeProps){
                 </Link>
             
             <Image width={700} height={160} src={episode.thumbnail} objectFit="cover"/>
-            <button type="button">
+            <button type="button" onClick = {()=> play(episode)}>
                 <img src="/play.svg" alt="Tocar"/>
             </button>
             </div>
